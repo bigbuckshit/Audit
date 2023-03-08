@@ -6,25 +6,24 @@
 文本过滤器
 基于DFA与字典树实现的高效文本过滤器
 
->>>t = TextFilter()     # 初始化                       # 贪婪模式,匹配所有敏感词
->>>t.is_contain('气死我了,卧槽. 免费提供无抵押贷款')       # 监测是否有敏感词,返回(敏感词在字符串的起始位置,敏感词,敏感词类型)构成的列表
+>>> t = TextFilter()     # 初始化                       # 贪婪模式,匹配所有敏感词
+>>> t.is_contain('气死我了,卧槽. 免费提供无抵押贷款')       # 监测是否有敏感词,返回(敏感词在字符串的起始位置,敏感词,敏感词类型)构成的列表
 [(5, u'\u5367\u69fd', 'dirty'), (13, u'\u65e0\u62b5\u62bc\u8d37\u6b3e', 'ad')]
->>>t.filter('习近平修宪')                                # 敏感词过滤 str
+>>> t.filter('习近平修宪')                                # 敏感词过滤 str
 ***修宪
->>>t.filter(u'卧槽,我真是草泥马')                         # 敏感词过滤 unicode
+>>> t.filter(u'卧槽,我真是草泥马')                         # 敏感词过滤 unicode
 **,我真是***
->>>t.filter(u'法论功大发好,真善忍好',replace_char=u'-')    # 敏感词过滤,指定替换字符
+>>> t.filter(u'法论功大发好,真善忍好',replace_char=u'-')    # 敏感词过滤,指定替换字符
 ---大发好,真善忍好
->>>t.filter('高效低价英雄联盟代练')                        # 测试添加敏感词功能
+>>> t.filter('高效低价英雄联盟代练')                        # 测试添加敏感词功能
 高效低价英雄联盟代练
->>>t.add_word(u'英雄联盟代练')
->>>t.filter('高效低价英雄联盟代练')
+>>> t.add_word(u'英雄联盟代练')
+>>> t.filter('高效低价英雄联盟代练')
 高效低价******
->>>t.classifie('出售幼,女私房照,小萝,莉私房,联系QQxxx')     # 文本敏感词统计(敏感词类型,出现次数) (会提前过滤符号)
+>>> t.classifie('出售幼,女私房照,小萝,莉私房,联系QQxxx')     # 文本敏感词统计(敏感词类型,出现次数) (会提前过滤符号)
 [('pron-child', 2), ('ad', 1)]
 
-author    :   @h-j-13
-time      :   2018-7-19
+
 """
 
 import re
@@ -65,7 +64,7 @@ class TextFilter(object):
         """向字典树里添加敏感词汇及敏感词类型"""
         # 处理编码
         if type(word) == str:
-            word = word.decode('utf-8')
+            word = word.encode('utf-8').decode('utf-8')
         # 向tire树添加节点
         node = self.root
         for i in range(len(word)):
@@ -82,7 +81,7 @@ class TextFilter(object):
         返回一个列表,每一个元祖都是敏感词(出现在字符串文中的位置,敏感词,类型)"""
         # 处理编码
         if type(message) == str:
-            message = message.decode('utf-8')
+            message = message.encode('utf-8').decode('utf-8')
         # 初始化结果变量
         result = []
         i, j, message_length = 0, 0, len(message)
@@ -106,10 +105,10 @@ class TextFilter(object):
         """过滤文本,将其中的敏感词替换为过滤字符(默认为*)"""
         # 处理编码
         if type(message) == str:
-            message = message.decode('utf-8')
+            message = message.encode('utf-8').decode('utf-8')
         res = self.is_contain(message)
         for (i, word, _) in res:
-            message = message[:i] + u"".join([replace_char for _ in xrange(len(word))]) + message[i + len(word):]
+            message = message[:i] + u"".join([replace_char for _ in range(len(word))]) + message[i + len(word):]
         return message
 
     def classifie(self, message):
@@ -117,7 +116,7 @@ class TextFilter(object):
         result = []
         # 处理编码
         if type(message) == str:
-            message = message.decode('utf-8')
+            message = message.encode('utf-8').decode('utf-8')
         # 去除各种标点符号
         message = re.sub("[\s+\.\!\/_,$%^*(+\"\']+|[+——！，。？、~@#￥%……&*（）]+".decode("utf8"), "".decode("utf8"), message)
         res = self.is_contain(message)
@@ -130,11 +129,11 @@ class TextFilter(object):
 
 if __name__ == '__main__':
     t = TextFilter()  # 初始化                       # 贪婪模式,匹配所有敏感词
-    print t.is_contain('气死我了,卧槽. 免费提供无抵押贷款')  # 监测是否有敏感词,返回(敏感词在字符串的起始位置,敏感词,敏感词类型)构成的列表
-    print t.filter('习近平修宪')  # 敏感词过滤 str
-    print t.filter(u'卧槽,我真是草泥马')  # 敏感词过滤 unicode
+    print (t.is_contain('气死我了,卧槽. 免费提供无抵押贷款')) # 监测是否有敏感词,返回(敏感词在字符串的起始位置,敏感词,敏感词类型)构成的列表
+    print (t.filter('习近平修宪'))  # 敏感词过滤 str
+    print (t.filter(u'卧槽,我真是草泥马'))  # 敏感词过滤 unicode
     t.filter(u'法论功大发好,真善忍好', replace_char=u'-')  # 敏感词过滤,指定替换字符
     t.filter('高效低价英雄联盟代练')  # 测试添加敏感词功能
     t.add_word(u'英雄联盟代练')
     t.filter('高效低价英雄联盟代练')
-    print t.classifie('出售幼,女私房照,小萝,莉私房,联系QQxxx')
+    print (t.classifie('出售幼,女私房照,小萝,莉私房,联系QQxxx'))

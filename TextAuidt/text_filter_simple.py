@@ -41,5 +41,5 @@ def text_filter(s):
 
 if __name__ == '__main__':
     init_data()
-    print text_filter(u'ABC')
-    print text_filter(u'人妻')
+    print (text_filter(u'ABC'))
+    print (text_filter(u'人妻'))

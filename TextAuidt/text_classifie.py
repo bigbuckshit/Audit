@@ -32,13 +32,13 @@ import os
 import sys
 import time
 import warnings
-import cPickle as pickle
+import pickle
 
 import jieba
 import numpy as np
 
 # data moudle
-from sklearn.datasets.base import Bunch
+from sklearn.datasets._base import Bunch
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn import metrics
 
@@ -53,6 +53,7 @@ from sklearn.ensemble import GradientBoostingClassifier
 
 from stop_words import get_stop_words
 from sensitive_word import SensitiveWords
+from importlib import reload
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -211,24 +212,24 @@ class TextClassifie(object):
         """构建分类模型"""
         if self.clf_num == 0:
             self.clf = svm.SVC()
-            print "使用支持向量机分类模型(SVM)"
+            print ("使用支持向量机分类模型(SVM)")
         elif self.clf_num == 1:
-            print "使用alpha=" + str(self.bayes_alpha) + "的多项式贝叶斯分类模型"
+            print ("使用alpha=" + str(self.bayes_alpha) + "的多项式贝叶斯分类模型")
             self.clf = MultinomialNB(alpha=self.bayes_alpha)
         elif self.clf_num == 2:
-            print "使用决策树分类模型"
+            print ("使用决策树分类模型")
             self.clf = DecisionTreeClassifier()
         elif self.clf_num == 3:
-            print "使用逻辑回归分类模型"
+            print ("使用逻辑回归分类模型")
             self.clf = LogisticRegression()
         elif self.clf_num == 4:
-            print "使用随机森林分类模型"
+            print ("使用随机森林分类模型")
             self.clf = RandomForestClassifier()
         elif self.clf_num == 5:
-            print "使用kNN聚类模型"
+            print ("使用kNN聚类模型")
             self.clf = KNeighborsClassifier(self.kNN_neighbors)
         elif self.clf_num == 6:
-            print "使用GBDT聚类模型"
+            print ("使用GBDT聚类模型")
             self.clf = GradientBoostingClassifier()
 
     def train(self, train_data):
@@ -236,23 +237,23 @@ class TextClassifie(object):
         self.train_data = train_data
         start_time = time.time()
         self.clf.fit(train_data.tdm, train_data.labels)
-        print "训练所用时间 : {0:.4f} sec".format(time.time() - start_time)
+        print ("训练所用时间 : {0:.4f} sec".format(time.time() - start_time))
 
     def predicted(self, test_data):
         """进行文本分类"""
         self.test_data = test_data
         start_time = time.time()
         self.predicted_data = self.clf.predict(test_data.tdm)
-        print "分类所用时间 : {0:.4f} sec".format(time.time() - start_time)
+        print ("分类所用时间 : {0:.4f} sec".format(time.time() - start_time))
         return self.predicted_data
 
     def metrics_result(self):
         """对测试集合进行比较"""
-        print '精度:{0:.5f}'.format(
-            metrics.precision_score(self.test_data.labels, self.predicted_data, average='weighted'))
-        print '召回:{0:.5f}'.format(metrics.recall_score(self.test_data.labels, self.predicted_data, average='weighted'))
-        print 'f1-score:{0:.5f}'.format(
-            metrics.f1_score(self.test_data.labels, self.predicted_data, average='weighted'))
+        print ('精度:{0:.5f}'.format(
+            metrics.precision_score(self.test_data.labels, self.predicted_data, average='weighted')))
+        print ('召回:{0:.5f}'.format(metrics.recall_score(self.test_data.labels, self.predicted_data, average='weighted')))
+        print ('f1-score:{0:.5f}'.format(
+            metrics.f1_score(self.test_data.labels, self.predicted_data, average='weighted')))
 
 
 if __name__ == '__main__':

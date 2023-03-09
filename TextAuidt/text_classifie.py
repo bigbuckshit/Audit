@@ -24,8 +24,7 @@
 >>>t.metrics_result()
 >>># 比对模型精度(只针对打好标签的训练集)
 
-author    :   @h-j-13
-time      :   2018-7-21
+
 """
 
 import os

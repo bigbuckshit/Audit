@@ -118,7 +118,7 @@ class TextFilter(object):
         if type(message) == str:
             message = message.encode('utf-8').decode('utf-8')
         # 去除各种标点符号
-        message = re.sub("[\s+\.\!\/_,$%^*(+\"\']+|[+——！，。？、~@#￥%……&*（）]+".decode("utf8"), "".decode("utf8"), message)
+        message = re.sub("[\s+\.\!\/_,$%^*(+\"\']+|[+——！，。？、~@#￥%……&*（）]+".encode('utf-8').decode("utf8"), "".encode('utf-8').decode("utf8"), message)
         res = self.is_contain(message)
         # 聚合语句中的敏感词信息及权重
         for _, _, word_type in res:

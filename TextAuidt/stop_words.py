@@ -10,8 +10,7 @@
 
 stop_words  # ...set(['stop word1', 'stop word1' ,...])
 
-author    :   @h-j-13
-time      :   2018-7-18
+
 """
 
 import os
@@ -36,7 +35,7 @@ def record_stop_words_data(stop_words, file_path='./data/stop_words.txt'):
     """记录停用词到日志中"""
     with open(file_path, 'wb') as f:
         for words in stop_words:
-            print words
+            print (words)
             f.write(words)
             f.write("\n")
 

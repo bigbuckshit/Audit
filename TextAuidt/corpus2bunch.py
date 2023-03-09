@@ -6,15 +6,15 @@
 文集处理为Bunch
 
 
-author    :   @h-j-13
-time      :   2018-7-20
+
 """
 
 import os
 import sys
-import cPickle as pickle  # cPickle可以对任意一种类型的python对象进行序列化操作
+import pickle  # cPickle可以对任意一种类型的python对象进行序列化操作
+from importlib import reload
 
-from sklearn.datasets.base import Bunch
+from sklearn.datasets._base import Bunch
 
 
 reload(sys)
@@ -50,7 +50,7 @@ def corpus2Bunch(word_bag_path=WORD_BAG_PATH, word_segment_path=WORD_SEGMENT_PAT
     # 将bunch存储到wordbag_path路径中
     with open(word_bag_path, "wb") as f:
         pickle.dump(bunch, f)
-    print "构建文本对象Bunch结束！"
+    print ("构建文本对象Bunch结束！")
 
 
 if __name__ == '__main__':

@@ -6,13 +6,11 @@
 使用贝叶斯模型进行文本分类
 
 
-author    :   @h-j-13
-time      :   2018-7-21
-ref       :   https://blog.csdn.net/github_36326955/article/details/54891204
 """
 
 import sys
-import cPickle as pickle
+import pickle
+from importlib import reload
 
 from sklearn import metrics
 from sklearn import tree
@@ -52,18 +50,18 @@ predicted = clf.predict(TRAIN_SET.tdm)
 
 for flabel, file_name, expct_cate in zip(TRAIN_SET.label, TRAIN_SET.filenames, predicted):
     if flabel != expct_cate:
-        print file_name, ": 实际类别:", flabel, " -->预测类别:", expct_cate
+        print (file_name, ": 实际类别:", flabel, " -->预测类别:", expct_cate)
 
-print "预测完毕!!!"
+print ("预测完毕!!!")
 
 # 计算分类精度：
 from sklearn import metrics
 
 
 def metrics_result(actual, predict):
-    print '精度:{0:.3f}'.format(metrics.precision_score(actual, predict, average='weighted'))
-    print '召回:{0:0.3f}'.format(metrics.recall_score(actual, predict, average='weighted'))
-    print 'f1-score:{0:.3f}'.format(metrics.f1_score(actual, predict, average='weighted'))
+    print ('精度:{0:.3f}'.format(metrics.precision_score(actual, predict, average='weighted')))
+    print ('召回:{0:0.3f}'.format(metrics.recall_score(actual, predict, average='weighted')))
+    print ('f1-score:{0:.3f}'.format(metrics.f1_score(actual, predict, average='weighted')))
 
 
 metrics_result(TRAIN_SET.label, predicted)

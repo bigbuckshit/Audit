@@ -5,6 +5,7 @@ import codecs
 import sys
 from gensim import corpora,models,similarities
 import os
+from importlib import reload
 allFileNum = 0
 
 reload(sys)
@@ -69,7 +70,7 @@ class XiangSi():
                     t = list1[j]
                     list1[j] = list1[j + 1]
                     list1[j + 1] = t
-        print list1
+        print (list1)
     def token1(self,text,topic):
         result=[]
         words=pesg.cut(text)#
@@ -106,7 +107,7 @@ class XiangSi():
                 i_dl = i_dl + 1
             else:
                 # 打印至控制台，不是第一个的目录
-                print '-' * (int(dirList[0])), dl
+                print ('-' * (int(dirList[0])), dl)
                 # 打印目录下的所有文件夹和文件，目录级别+1
                 self.printPath((int(dirList[0]) + 1), path + '/' + dl)
         # for fl in fileList:
@@ -160,10 +161,10 @@ if __name__=='__main__':
     # print list1,u'高血压','\n',list2,'ios','\n',list3,'android','\n',list4,'lee','\n',list5,'zhou'
     # print xs.printPath(1, 'D:/ZNdaolun/text')
     for i in range(len(list6)):
-        print list6[i][1]
+        print (list6[i][1])
         if list6[i][1]<0.3:
             list6[i]=(list6[i][0],"no")
-    print list6
+    print (list6)
 
 
 

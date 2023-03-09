@@ -6,15 +6,14 @@
 bunch模型转化为TF-IDF空间向量
 
 
-author    :   @h-j-13
-time      :   2018-7-21
-ref       :   https://blog.csdn.net/github_36326955/article/details/54891204
+
 """
 
 import sys
-import cPickle as pickle
+import pickle
+from importlib import reload
 
-from sklearn.datasets.base import Bunch
+from sklearn.datasets._base import Bunch
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 from stop_words import get_stop_words
@@ -57,7 +56,7 @@ def vector_space():
     tfidfspace.vocabulary = vectorizer.vocabulary_
     # 结果写入文件
     write_obj(TF_IDF_PATH, tfidfspace)
-    print "if-idf词向量空间实例创建成功！"
+    print ("if-idf词向量空间实例创建成功！")
 
 
 if __name__ == '__main__':

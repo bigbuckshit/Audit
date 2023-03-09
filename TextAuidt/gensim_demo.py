@@ -4,8 +4,7 @@
 """
 gensim 库简单学习使用
 
-author    :   @h-j-13
-time      :   2018-7-23
+
 """
 
 import logging
@@ -36,11 +35,11 @@ model = word2vec.Word2Vec(sentences, min_count=1)
 # 3. workers 参数用于设置并发训练时候的线程数，不过仅当Cython安装的情况下才会起作用(默认值为1,不进行并发)
 
 # word2vec
-print model['the']  # 将词转化为100个向量的矩阵
+print (model['the'])  # 将词转化为100个向量的矩阵
 # 进行相关性比较
-print model.similarity('dogs', 'you')  # -0.037060834
+print (model.similarity('dogs', 'you'))  # -0.037060834
 # 最相似的词
-print model.most_similar(['you'])
+print (model.most_similar(['you']))
 
 # # 模型的保存与读取
 # model.save('test.model')

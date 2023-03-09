@@ -13,8 +13,7 @@
 # >>>s.save_data()                                        # 保存敏感词数据
 # >>>s.sensitive_word_dict                                # 核心数据被保存在字典中
 
-author    :   @h-j-13
-time      :   2018-7-19
+
 """
 
 import os

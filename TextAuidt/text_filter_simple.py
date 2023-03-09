@@ -7,8 +7,7 @@
 使用python内建的 in,replace 实现文本过滤
 
 
-author    :   @h-j-13
-time      :   2018-7-19
+
 """
 
 from sensitive_word import SensitiveWords
@@ -31,7 +30,7 @@ def text_filter(s):
     data = senstive_data_list
 
     if type(s) == str:
-        s = s.decode('utf-8')
+        s = s.encode('utf-8').decode('utf-8')
 
     for word in data:
         if word in s:

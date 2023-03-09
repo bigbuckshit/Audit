@@ -4,8 +4,7 @@
 """
 词频统计
 
-author    :   @h-j-13
-time      :   2018-7-31
+
 """
 
 import nltk
@@ -39,7 +38,7 @@ class WordCount(object):
         with open(self.file_path, 'rb') as f:
             for line in f:
                 self.text.append(line.decode('utf8').strip())
-        print "读取文本完毕 - 共" + str(len(self.text)) + "行"
+        print ("读取文本完毕 - 共" + str(len(self.text)) + "行")
 
     def analysis_text(self):
         """分析文本数据"""
@@ -52,9 +51,9 @@ class WordCount(object):
             else:
                 self.text_analysis[t_type] = [t_text]
 
-        print "文本分析结果:"
+        print ("文本分析结果:")
         for k in self.text_analysis.keys():
-            print str(k) + " 类 - 文本数量 " + str(len(self.text_analysis[k]))
+            print (str(k) + " 类 - 文本数量 " + str(len(self.text_analysis[k])))
 
     def word_count(self, top_n=50):
         """分词后统计词频"""
